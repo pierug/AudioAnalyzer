@@ -31,7 +31,10 @@ void AudioIOTest::testLoadFile()
 void AudioIOTest::testPlay()
 {
     QVERIFY2(true, "Failure");
-   // QVERIFY2(audioIO->play()==true,"Error play method");
+    QVERIFY2(audioIO->play("testFile.wav")==true,"Error play method");
+
+    QVERIFY2(audioIO->loadFile("testFile.wav")==true,"Error load file");
+    QVERIFY2(audioIO->play()==true,"Error play method");
 }
 
 void AudioIOTest::cleanupTestCase()

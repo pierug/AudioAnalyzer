@@ -1,10 +1,14 @@
 #include "audioio.h"
 #include <QObject>
 #include "wavefile.h"
+#include "utils.h"
 
 AudioIO::AudioIO(QObject *parent) :
     QObject(parent)
 {
+    m_file=0;
+    m_analysisFile=0;
+    m_audioOutput=0;
 
 }
 
@@ -16,22 +20,27 @@ AudioIO::~AudioIO()
 
 bool AudioIO::loadFile(const QString &fileName)
 {
-    //reset();
     bool result = false;
-    //Q_ASSERT(!m_generateTone);
-    //Q_ASSERT(!m_file);
-    if(fileName.isEmpty())
+ /*   if(m_file!=NULL){
+        delete m_file;
+    }
+    if(m_analysisFile!=NULL){
+        delete m_analysisFile;
+    }*/
+    if(fileName.isEmpty()){
+        qWarning() << "String file name is empty.";
         return false;
+    }
     m_file = new WavFile(this);
     if (m_file->open(fileName)) {
         result = true;
         /*if (isPCMS16LE(m_file->fileFormat())) {
-            result = initialize();
+            result = true;
         } else {
-            emit errorMessage(tr("Audio format not supported"),
-                              formatToString(m_file->fileFormat()));
+            return false;
         }*/
     } else {
+        qWarning() << "Can't open file.";
         return false;
     }
     if (result) {
@@ -43,5 +52,33 @@ bool AudioIO::loadFile(const QString &fileName)
 
 bool AudioIO::play()
 {
+    m_audioFormat = m_file->fileFormat();
+    QAudioDeviceInfo info(QAudioDeviceInfo::defaultOutputDevice());
+    if (!info.isFormatSupported(m_audioFormat)) {
+        qWarning() << "Raw audio format not supported by backend, cannot play audio.";
+        return false;
+    }
+
+    m_audioOutput = new QAudioOutput(m_audioFormat, this);
+    m_audioOutput->start(m_file);
     return true;
 }
+
+
+bool AudioIO::play(const QString &fileName)
+{
+    if(!loadFile(fileName)){
+        return false;
+    }
+    m_audioFormat = m_file->fileFormat();
+    QAudioDeviceInfo info(QAudioDeviceInfo::defaultOutputDevice());
+    if (!info.isFormatSupported(m_audioFormat)) {
+        qWarning() << "Raw audio format not supported by backend, cannot play audio.";
+        return false;
+    }
+
+    m_audioOutput = new QAudioOutput(m_audioFormat, this);
+    m_audioOutput->start(m_file);
+    return true;
+}
+

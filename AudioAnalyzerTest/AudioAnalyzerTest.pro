@@ -28,6 +28,6 @@ HEADERS += \
     audioiotest.h \
     \
 ../AudioAnalyzer/audioio.h\
-../AudioAnalyzer/wavefile.h \
+../AudioAnalyzer/wavefile.h
 
 

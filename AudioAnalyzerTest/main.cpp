@@ -4,8 +4,9 @@
 
 int main()
 {
-    WaveFileTest waveFileTest;
-    QTest::qExec(&waveFileTest);
+
+    //WaveFileTest waveFileTest;
+    //QTest::qExec(&waveFileTest);
 
     AudioIOTest auidioIOTest;
     QTest::qExec(&auidioIOTest);

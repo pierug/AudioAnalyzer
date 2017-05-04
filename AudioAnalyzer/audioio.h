@@ -3,6 +3,9 @@
 
 #include <QObject>
 #include "wavefile.h"
+#include <QtMultimedia/QAudioDeviceInfo>
+#include <QtMultimedia/QAudioFormat>
+#include <QtMultimedia/QAudioOutput>
 
 class AudioIO: public QObject
 {
@@ -12,11 +15,13 @@ public:
     ~AudioIO();
 
     bool loadFile(const QString& fileName);
-    bool play();
-
+    bool play();    
+    bool play(const QString &fileName);
 private:
     WavFile* m_file;
     WavFile* m_analysisFile;
+    QAudioOutput* m_audioOutput;
+    QAudioFormat m_audioFormat;
 };
 
 #endif // AUDIOIO_H
