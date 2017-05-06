@@ -21,12 +21,6 @@ AudioIO::~AudioIO()
 bool AudioIO::loadFile(const QString &fileName)
 {
     bool result = false;
- /*   if(m_file!=NULL){
-        delete m_file;
-    }
-    if(m_analysisFile!=NULL){
-        delete m_analysisFile;
-    }*/
     if(fileName.isEmpty()){
         qWarning() << "String file name is empty.";
         return false;
@@ -34,11 +28,6 @@ bool AudioIO::loadFile(const QString &fileName)
     m_file = new WavFile(this);
     if (m_file->open(fileName)) {
         result = true;
-        /*if (isPCMS16LE(m_file->fileFormat())) {
-            result = true;
-        } else {
-            return false;
-        }*/
     } else {
         qWarning() << "Can't open file.";
         return false;
@@ -80,5 +69,10 @@ bool AudioIO::play(const QString &fileName)
     m_audioOutput = new QAudioOutput(m_audioFormat, this);
     m_audioOutput->start(m_file);
     return true;
+}
+
+WavFile *AudioIO::file() const
+{
+    return m_file;
 }
 

@@ -43,6 +43,12 @@ void WaveFileTest::testFileFormat()
     QVERIFY2(wavFile->fileFormat().channelCount()==1,"Wrong channel count");
 }
 
+void WaveFileTest::testFileSize()
+{
+    QVERIFY2(wavFile->size()==96300,"Wrong bytes number");
+    QVERIFY2(wavFile->size()/1024==94,"Wrong kilo bytes number");
+}
+
 
 void WaveFileTest::cleanUpTestCase()
 {

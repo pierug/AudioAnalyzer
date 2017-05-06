@@ -18,7 +18,9 @@ SOURCES += main.cpp \
     audioiotest.cpp \
     \
 ../AudioAnalyzer/wavefile.cpp \
-../AudioAnalyzer/audioio.cpp
+../AudioAnalyzer/audioio.cpp \
+    signaltest.cpp \
+    ../AudioAnalyzer/signal.cpp
 
 
 DEFINES += QT_DEPRECATED_WARNINGS
@@ -28,6 +30,11 @@ HEADERS += \
     audioiotest.h \
     \
 ../AudioAnalyzer/audioio.h\
-../AudioAnalyzer/wavefile.h
+../AudioAnalyzer/wavefile.h \
+    signaltest.h \
+    ../AudioAnalyzer/signal.h
+
+SUBDIRS += \
+    ../AudioAnalyzer/AudioAnalyzer.pro
 
 

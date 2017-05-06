@@ -17,6 +17,8 @@ public:
     bool loadFile(const QString& fileName);
     bool play();    
     bool play(const QString &fileName);
+    WavFile *file() const;
+
 private:
     WavFile* m_file;
     WavFile* m_analysisFile;

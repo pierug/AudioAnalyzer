@@ -15,7 +15,8 @@ TEMPLATE = app
 SOURCES += main.cpp \
     wavefile.cpp \
     utils.cpp \
-    audioio.cpp
+    audioio.cpp \
+    signal.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -31,4 +32,5 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += \
     wavefile.h \
     utils.h \
-    audioio.h
+    audioio.h \
+    signal.h

@@ -22,7 +22,7 @@ private slots:
     void testOpenFile();
     void testHeaderLenght();
     void testFileFormat();
-
+    void testFileSize();
     void cleanUpTestCase();
 };
 

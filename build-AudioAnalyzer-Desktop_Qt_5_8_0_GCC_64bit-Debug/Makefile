@@ -51,11 +51,13 @@ OBJECTS_DIR   = ./
 SOURCES       = ../AudioAnalyzer/main.cpp \
 		../AudioAnalyzer/wavefile.cpp \
 		../AudioAnalyzer/utils.cpp \
-		../AudioAnalyzer/audioio.cpp moc_audioio.cpp
+		../AudioAnalyzer/audioio.cpp \
+		../AudioAnalyzer/signal.cpp moc_audioio.cpp
 OBJECTS       = main.o \
 		wavefile.o \
 		utils.o \
 		audioio.o \
+		signal.o \
 		moc_audioio.o
 DIST          = ../../../../Qt/5.8/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.8/gcc_64/mkspecs/common/unix.conf \
@@ -229,10 +231,12 @@ DIST          = ../../../../Qt/5.8/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.8/gcc_64/mkspecs/features/lex.prf \
 		../AudioAnalyzer/AudioAnalyzer.pro ../AudioAnalyzer/wavefile.h \
 		../AudioAnalyzer/utils.h \
-		../AudioAnalyzer/audioio.h ../AudioAnalyzer/main.cpp \
+		../AudioAnalyzer/audioio.h \
+		../AudioAnalyzer/signal.h ../AudioAnalyzer/main.cpp \
 		../AudioAnalyzer/wavefile.cpp \
 		../AudioAnalyzer/utils.cpp \
-		../AudioAnalyzer/audioio.cpp
+		../AudioAnalyzer/audioio.cpp \
+		../AudioAnalyzer/signal.cpp
 QMAKE_TARGET  = AudioAnalyzer
 DESTDIR       = 
 TARGET        = AudioAnalyzer
@@ -614,8 +618,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.8/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../AudioAnalyzer/wavefile.h ../AudioAnalyzer/utils.h ../AudioAnalyzer/audioio.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../AudioAnalyzer/main.cpp ../AudioAnalyzer/wavefile.cpp ../AudioAnalyzer/utils.cpp ../AudioAnalyzer/audioio.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../AudioAnalyzer/wavefile.h ../AudioAnalyzer/utils.h ../AudioAnalyzer/audioio.h ../AudioAnalyzer/signal.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../AudioAnalyzer/main.cpp ../AudioAnalyzer/wavefile.cpp ../AudioAnalyzer/utils.cpp ../AudioAnalyzer/audioio.cpp ../AudioAnalyzer/signal.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -806,7 +810,8 @@ main.o: ../AudioAnalyzer/main.cpp ../../../../Qt/5.8/gcc_64/include/QtCore/QCore
 		../../../../Qt/5.8/gcc_64/include/QtMultimedia/qaudiodeviceinfo.h \
 		../../../../Qt/5.8/gcc_64/include/QtMultimedia/qaudio.h \
 		../../../../Qt/5.8/gcc_64/include/QtMultimedia/QAudioOutput \
-		../../../../Qt/5.8/gcc_64/include/QtMultimedia/qaudiooutput.h
+		../../../../Qt/5.8/gcc_64/include/QtMultimedia/qaudiooutput.h \
+		../AudioAnalyzer/signal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../AudioAnalyzer/main.cpp
 
 wavefile.o: ../AudioAnalyzer/wavefile.cpp ../../../../Qt/5.8/gcc_64/include/QtCore/qendian.h \
@@ -1042,6 +1047,71 @@ audioio.o: ../AudioAnalyzer/audioio.cpp ../AudioAnalyzer/audioio.h \
 		../../../../Qt/5.8/gcc_64/include/QtCore/qsharedpointer.h \
 		../../../../Qt/5.8/gcc_64/include/QtCore/qsharedpointer_impl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o audioio.o ../AudioAnalyzer/audioio.cpp
+
+signal.o: ../AudioAnalyzer/signal.cpp ../AudioAnalyzer/signal.h \
+		../AudioAnalyzer/wavefile.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/QObject \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qtypetraits.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/QFile \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qfile.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qfiledevice.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt/5.8/gcc_64/include/QtMultimedia/QAudioFormat \
+		../../../../Qt/5.8/gcc_64/include/QtMultimedia/qaudioformat.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qhash.h \
+		../../../../Qt/5.8/gcc_64/include/QtMultimedia/qtmultimediaglobal.h \
+		../../../../Qt/5.8/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../../Qt/5.8/gcc_64/include/QtGui/qtgui-config.h \
+		../../../../Qt/5.8/gcc_64/include/QtMultimedia/qtmultimedia-config.h \
+		../../../../Qt/5.8/gcc_64/include/QtMultimedia/qmultimedia.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o signal.o ../AudioAnalyzer/signal.cpp
 
 moc_audioio.o: moc_audioio.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_audioio.o moc_audioio.cpp
