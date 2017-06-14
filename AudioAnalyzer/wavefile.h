@@ -14,7 +14,7 @@ public:
     bool open(const QString &fileName);
     const QAudioFormat &fileFormat() const;
     qint64 headerLength() const;
-
+    void printFileInfo();
 private:
     bool readHeader();
 

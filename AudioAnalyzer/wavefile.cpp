@@ -70,6 +70,15 @@ qint64 WavFile::headerLength() const
     return m_headerLength;
 }
 
+void WavFile::printFileInfo()
+{
+    cout<<"File info"<<endl;
+    cout<<"File Size: "<<this->size()<<endl;
+    cout<<"Sample Size: "<<this->fileFormat().sampleSize()<<endl;
+    cout<<"Sample Rate: "<<this->fileFormat().sampleRate()<<endl;
+    cout<<"Channel Count: "<<this->fileFormat().channelCount()<<endl;
+}
+
 bool WavFile::readHeader()
 {
     seek(0);

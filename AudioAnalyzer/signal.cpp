@@ -5,6 +5,8 @@
 #include <functional>
 #include "wavefile.h"
 
+#define HEADER_LENGHT 44
+
 Signal::Signal()
 {
 
@@ -23,13 +25,21 @@ void Signal::setOscilogramValues(const myVector &vec)
 myVector Signal::getOscilogramValuesFromWav(WavFile& wavFile)
 {
     myVector data;
-    long int fileSize=wavFile.size();//wavFile.size()/wavFile.fileFormat().sampleSize();
+    long int fileSize=wavFile.size();
+    int sampleSize = wavFile.fileFormat().sampleSize();
     char dat[fileSize];
     wavFile.read(dat,fileSize);
     const double sampleRateSec = 1.0/wavFile.fileFormat().sampleRate();
-    for(long int i=0;i<fileSize;i++){
-       myPair p((int)dat[i],i*sampleRateSec);
-        data.push_back(p);
+    int bondedValue=0;
+    int fileBytes = sampleSize/8;
+    for(long int i=HEADER_LENGHT, sec=0;i<fileSize;i=i+fileBytes, sec++){
+        bondedValue=0;
+        for(int j=0; j<fileBytes;j++){
+            bondedValue = bondedValue<<8;
+            bondedValue |= dat[i+j];
+        }
+        myPair newValue(bondedValue,sec*sampleRateSec);
+        data.push_back(newValue);
     }
     return data;
 }

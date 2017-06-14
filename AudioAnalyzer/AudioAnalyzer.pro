@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     wavefile.cpp \
     utils.cpp \
     audioio.cpp \
-    signal.cpp
+    signal.cpp \
+    fastfouriertransformation.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -33,4 +34,5 @@ HEADERS += \
     wavefile.h \
     utils.h \
     audioio.h \
-    signal.h
+    signal.h \
+    fastfouriertransformation.h

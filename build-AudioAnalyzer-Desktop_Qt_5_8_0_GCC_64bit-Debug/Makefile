@@ -52,12 +52,14 @@ SOURCES       = ../AudioAnalyzer/main.cpp \
 		../AudioAnalyzer/wavefile.cpp \
 		../AudioAnalyzer/utils.cpp \
 		../AudioAnalyzer/audioio.cpp \
-		../AudioAnalyzer/signal.cpp moc_audioio.cpp
+		../AudioAnalyzer/signal.cpp \
+		../AudioAnalyzer/fastfouriertransformation.cpp moc_audioio.cpp
 OBJECTS       = main.o \
 		wavefile.o \
 		utils.o \
 		audioio.o \
 		signal.o \
+		fastfouriertransformation.o \
 		moc_audioio.o
 DIST          = ../../../../Qt/5.8/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.8/gcc_64/mkspecs/common/unix.conf \
@@ -232,11 +234,13 @@ DIST          = ../../../../Qt/5.8/gcc_64/mkspecs/features/spec_pre.prf \
 		../AudioAnalyzer/AudioAnalyzer.pro ../AudioAnalyzer/wavefile.h \
 		../AudioAnalyzer/utils.h \
 		../AudioAnalyzer/audioio.h \
-		../AudioAnalyzer/signal.h ../AudioAnalyzer/main.cpp \
+		../AudioAnalyzer/signal.h \
+		../AudioAnalyzer/fastfouriertransformation.h ../AudioAnalyzer/main.cpp \
 		../AudioAnalyzer/wavefile.cpp \
 		../AudioAnalyzer/utils.cpp \
 		../AudioAnalyzer/audioio.cpp \
-		../AudioAnalyzer/signal.cpp
+		../AudioAnalyzer/signal.cpp \
+		../AudioAnalyzer/fastfouriertransformation.cpp
 QMAKE_TARGET  = AudioAnalyzer
 DESTDIR       = 
 TARGET        = AudioAnalyzer
@@ -618,8 +622,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.8/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../AudioAnalyzer/wavefile.h ../AudioAnalyzer/utils.h ../AudioAnalyzer/audioio.h ../AudioAnalyzer/signal.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../AudioAnalyzer/main.cpp ../AudioAnalyzer/wavefile.cpp ../AudioAnalyzer/utils.cpp ../AudioAnalyzer/audioio.cpp ../AudioAnalyzer/signal.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../AudioAnalyzer/wavefile.h ../AudioAnalyzer/utils.h ../AudioAnalyzer/audioio.h ../AudioAnalyzer/signal.h ../AudioAnalyzer/fastfouriertransformation.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../AudioAnalyzer/main.cpp ../AudioAnalyzer/wavefile.cpp ../AudioAnalyzer/utils.cpp ../AudioAnalyzer/audioio.cpp ../AudioAnalyzer/signal.cpp ../AudioAnalyzer/fastfouriertransformation.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -811,7 +815,8 @@ main.o: ../AudioAnalyzer/main.cpp ../../../../Qt/5.8/gcc_64/include/QtCore/QCore
 		../../../../Qt/5.8/gcc_64/include/QtMultimedia/qaudio.h \
 		../../../../Qt/5.8/gcc_64/include/QtMultimedia/QAudioOutput \
 		../../../../Qt/5.8/gcc_64/include/QtMultimedia/qaudiooutput.h \
-		../AudioAnalyzer/signal.h
+		../AudioAnalyzer/signal.h \
+		../AudioAnalyzer/fastfouriertransformation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../AudioAnalyzer/main.cpp
 
 wavefile.o: ../AudioAnalyzer/wavefile.cpp ../../../../Qt/5.8/gcc_64/include/QtCore/qendian.h \
@@ -1112,6 +1117,9 @@ signal.o: ../AudioAnalyzer/signal.cpp ../AudioAnalyzer/signal.h \
 		../../../../Qt/5.8/gcc_64/include/QtMultimedia/qtmultimedia-config.h \
 		../../../../Qt/5.8/gcc_64/include/QtMultimedia/qmultimedia.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o signal.o ../AudioAnalyzer/signal.cpp
+
+fastfouriertransformation.o: ../AudioAnalyzer/fastfouriertransformation.cpp ../AudioAnalyzer/fastfouriertransformation.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fastfouriertransformation.o ../AudioAnalyzer/fastfouriertransformation.cpp
 
 moc_audioio.o: moc_audioio.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_audioio.o moc_audioio.cpp
